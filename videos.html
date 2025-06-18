@@ -3,100 +3,130 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEET 2026 Video Lectures</title>
-  <link rel="stylesheet" href="style.css">
+  <title>AVNOWLEDGE - NEET 2026 Video Lectures</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f4f6fa;
+      background: #f0f2f5;
+      color: #2c3e50;
     }
     header, footer {
-      background-color: #2c3e50;
-      color: white;
-      padding: 1rem;
+      background: linear-gradient(to right, #34495e, #2c3e50);
+      color: #fff;
+      padding: 1.5rem 1rem;
       text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
     }
     .container {
-      padding: 2rem;
+      padding: 2rem 1rem;
+      max-width: 1000px;
+      margin: auto;
     }
-    .subject {
-      margin-bottom: 3rem;
+    .subject-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
-    .subject h2 {
-      color: #34495e;
-    }
-    .chapter {
-      background: white;
-      padding: 1rem;
-      margin: 1rem 0;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    iframe {
-      width: 100%;
-      height: 300px;
+    .subject-buttons button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
       border: none;
-      margin-top: 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #3498db;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: 0.3s;
     }
-    textarea {
+    .subject-buttons button:hover {
+      background: #2980b9;
+    }
+    .lessons, .video-player {
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .chapter-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .chapter-list button {
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #ecf0f1;
+      color: #2c3e50;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .chapter-list button:hover {
+      background-color: #d0d7de;
+    }
+    .video-player iframe {
       width: 100%;
-      margin-top: 1rem;
-      padding: 0.5rem;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-family: inherit;
-      resize: vertical;
+      height: 400px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
-    .progress {
-      width: 100%;
-      background: #ecf0f1;
-      border-radius: 5px;
-      overflow: hidden;
-      margin-top: 0.5rem;
-    }
-    .progress-bar {
-      height: 10px;
-      background: #27ae60;
-      width: 0%;
+    footer {
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>AVNOWLEDGE - Video Lectures</h1>
-    <p>Watch, learn, and take notes. All progress is saved locally.</p>
+    <p>Select your subject to begin learning</p>
   </header>
+
   <div class="container">
-
-    <!-- Physics Section -->
-    <div class="subject">
-      <h2>📘 Physics</h2>
-      <div class="chapter"><h3>Motion in a Straight Line</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID1"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
-      <div class="chapter"><h3>Laws of Motion</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID2"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
-      <div class="chapter"><h3>Work, Energy and Power</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID3"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
-      <!-- Add more Physics chapters similarly -->
+    <div class="subject-buttons">
+      <button onclick="showLessons('physics')">Physics</button>
+      <button onclick="showLessons('chemistry')">Chemistry</button>
+      <button onclick="showLessons('biology')">Biology</button>
     </div>
 
-    <!-- Chemistry Section -->
-    <div class="subject">
-      <h2>🧪 Chemistry</h2>
-      <div class="chapter"><h3>Basic Concepts of Chemistry</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID4"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
-      <div class="chapter"><h3>Chemical Bonding</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID5"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
-      <div class="chapter"><h3>Thermodynamics</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID6"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
-      <!-- Add more Chemistry chapters similarly -->
+    <div id="physics" class="lessons chapter-list">
+      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID1')">Motion in a Straight Line</button>
+      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID2')">Laws of Motion</button>
+      <!-- Add all physics chapters -->
     </div>
 
-    <!-- Biology Section -->
-    <div class="subject">
-      <h2>🧬 Biology</h2>
-      <div class="chapter"><h3>Diversity of Living Organisms</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID7"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
-      <div class="chapter"><h3>Cell Structure and Function</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID8"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
-      <div class="chapter"><h3>Human Physiology</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID9"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
-      <!-- Add more Biology chapters similarly -->
+    <div id="chemistry" class="lessons chapter-list">
+      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID3')">Basic Concepts of Chemistry</button>
+      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID4')">Chemical Bonding</button>
+      <!-- Add all chemistry chapters -->
     </div>
 
+    <div id="biology" class="lessons chapter-list">
+      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID5')">Diversity of Living Organisms</button>
+      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID6')">Cell Structure and Function</button>
+      <!-- Add all biology chapters -->
+    </div>
+
+    <div class="video-player" id="videoPlayer">
+      <iframe id="videoFrame" src="" allowfullscreen></iframe>
+    </div>
   </div>
 
   <footer>
@@ -104,14 +134,16 @@
   </footer>
 
   <script>
-    // Save and Load Notes
-    document.querySelectorAll("textarea").forEach((textarea, index) => {
-      const key = "notes-" + index;
-      textarea.value = localStorage.getItem(key) || "";
-      textarea.addEventListener("input", () => {
-        localStorage.setItem(key, textarea.value);
-      });
-    });
+    function showLessons(subject) {
+      document.querySelectorAll('.lessons').forEach(section => section.style.display = 'none');
+      document.querySelector('.video-player').style.display = 'none';
+      document.getElementById(subject).style.display = 'grid';
+    }
+
+    function playVideo(link) {
+      document.getElementById('videoFrame').src = link;
+      document.querySelector('.video-player').style.display = 'block';
+    }
   </script>
 </body>
 </html>
