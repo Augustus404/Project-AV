@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Avnowledge Notes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b3e5fc 100%);
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(90deg, #4fc3f7 0%, #0288d1 100%);
+            color: #fff;
+            padding: 32px 0 24px 0;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(2,136,209,0.08);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 32px auto;
+            padding: 0 16px;
+        }
+        .subject-card {
+            background: #ffffffcc;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(33,150,243,0.10);
+            margin-bottom: 36px;
+            padding: 28px 28px 18px 28px;
+            transition: box-shadow 0.2s;
+        }
+        .subject-card:hover {
+            box-shadow: 0 8px 32px rgba(33,150,243,0.18);
+        }
+        .subject-title {
+            color: #0288d1;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .class-title {
+            color: #039be5;
+            font-size: 1.2rem;
+            margin: 18px 0 10px 0;
+            font-weight: 600;
+        }
+        ul.chapter-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 10px 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        ul.chapter-list li {
+            margin: 0 18px 10px 0;
+            padding: 0;
+        }
+        a.chapter-link {
+            display: inline-block;
+            background: linear-gradient(90deg, #b3e5fc 0%, #4fc3f7 100%);
+            color: #01579b;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(33,150,243,0.07);
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+        }
+        a.chapter-link:hover {
+            background: linear-gradient(90deg, #4fc3f7 0%, #0288d1 100%);
+            color: #fff;
+            transform: translateY(-2px) scale(1.04);
+        }
+        @media (max-width: 700px) {
+            .container { padding: 0 4px; }
+            .subject-card { padding: 16px 8px 10px 8px; }
+            .subject-title { font-size: 1.3rem; }
+            ul.chapter-list li { margin: 0 8px 8px 0; }
+            a.chapter-link { padding: 7px 10px; font-size: 0.98rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Avnowledge Notes</h1>
+        <p style="font-size:1.1rem; margin-top:10px; letter-spacing:1px;">All Subjects & Chapters • Free Download</p>
+    </header>
+    <div class="container">
+
+        <!-- Physics -->
+        <div class="subject-card">
+            <div class="subject-title">Physics</div>
+            <div class="class-title">Class 11</div>
+            <ul class="chapter-list">
+                <li><a class="chapter-link" href="notes/physics/Basic Maths, Vectors, Unit And Dimensions.pdf" target="_blank">Basic Maths, Vectors, Unit And Dimensions</a></li>
+                <li><a class="chapter-link" href="notes/physics/motion-in-a-straight-line.pdf" target="_blank">Motion in a Straight Line</a></li>
+                <li><a class="chapter-link" href="notes/physics/motion-in-a-plane.pdf" target="_blank">Motion in a Plane</a></li>
+                <li><a class="chapter-link" href="notes/physics/laws-of-motion.pdf" target="_blank">Laws of Motion</a></li>
+                <li><a class="chapter-link" href="notes/physics/work-energy-and-power.pdf" target="_blank">Work, Energy and Power</a></li>
+                <li><a class="chapter-link" href="notes/physics/system-of-particles-and-rotational-motion.pdf" target="_blank">System of Particles and Rotational Motion</a></li>
+                <li><a class="chapter-link" href="notes/physics/gravitation.pdf" target="_blank">Gravitation</a></li>
+                <li><a class="chapter-link" href="notes/physics/mechanical-properties-of-solids.pdf" target="_blank">Mechanical Properties of Solids</a></li>
+                <li><a class="chapter-link" href="notes/physics/mechanical-properties-of-fluids.pdf" target="_blank">Mechanical Properties of Fluids</a></li>
+                <li><a class="chapter-link" href="notes/physics/thermal-properties-of-matter.pdf" target="_blank">Thermal Properties of Matter</a></li>
+                <li><a class="chapter-link" href="notes/physics/thermodynamics.pdf" target="_blank">Thermodynamics</a></li>
+                <li><a class="chapter-link" href="notes/physics/kinetic-theory.pdf" target="_blank">Kinetic Theory</a></li>
+                <li><a class="chapter-link" href="notes/physics/oscillations.pdf" target="_blank">Oscillations</a></li>
+                <li><a class="chapter-link" href="notes/physics/waves.pdf" target="_blank">Waves</a></li>
+            </ul>
+            <div class="class-title">Class 12</div>
+            <ul class="chapter-list">
+                <li><a class="chapter-link" href="notes/physics/electric-charges-and-fields.pdf" target="_blank">Electric Charges and Fields</a></li>
+                <li><a class="chapter-link" href="notes/physics/electrostatic-potential-and-capacitance.pdf" target="_blank">Electrostatic Potential and Capacitance</a></li>
+                <li><a class="chapter-link" href="notes/physics/current-electricity.pdf" target="_blank">Current Electricity</a></li>
+                <li><a class="chapter-link" href="notes/physics/moving-charges-and-magnetism.pdf" target="_blank">Moving Charges and Magnetism</a></li>
+                <li><a class="chapter-link" href="notes/physics/magnetism-and-matter.pdf" target="_blank">Magnetism and Matter</a></li>
+                <li><a class="chapter-link" href="notes/physics/electromagnetic-induction.pdf" target="_blank">Electromagnetic Induction</a></li>
+                <li><a class="chapter-link" href="notes/physics/alternating-current.pdf" target="_blank">Alternating Current</a></li>
+                <li><a class="chapter-link" href="notes/physics/electromagnetic-waves.pdf" target="_blank">Electromagnetic Waves</a></li>
+                <li><a class="chapter-link" href="notes/physics/optics.pdf" target="_blank">Ray Optics and Optical Instruments</a></li>
+                <li><a class="chapter-link" href="notes/physics/wave-optics.pdf" target="_blank">Wave Optics</a></li>
+                <li><a class="chapter-link" href="notes/physics/dual-nature-of-radiation-and-matter.pdf" target="_blank">Dual Nature of Radiation and Matter</a></li>
+                <li><a class="chapter-link" href="notes/physics/atoms.pdf" target="_blank">Atoms</a></li>
+                <li><a class="chapter-link" href="notes/physics/nuclei.pdf" target="_blank">Nuclei</a></li>
+                <li><a class="chapter-link" href="notes/physics/semiconductor-electronics.pdf" target="_blank">Semiconductor Electronics</a></li>
+            </ul>
+        </div>
+
+        <!-- Chemistry -->
+        <div class="subject-card">
+            <div class="subject-title">Chemistry</div>
+            <div class="class-title">Class 11</div>
+            <ul class="chapter-list">
+                <li><a class="chapter-link" href="notes/chemistry/some-basic-concepts-of-chemistry.pdf" target="_blank">Some Basic Concepts of Chemistry</a></li>
+                <li><a class="chapter-link" href="Atomic structure.pdf" target="_blank">Atomic Structure</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/classification-of-elements-and-periodicity.pdf" target="_blank">Classification of Elements and Periodicity in Properties</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/chemical-bonding-and-molecular-structure.pdf" target="_blank">Chemical Bonding and Molecular Structure</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/states-of-matter.pdf" target="_blank">States of Matter: Gases and Liquids</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/thermodynamics.pdf" target="_blank">Thermodynamics</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/equilibrium.pdf" target="_blank">Equilibrium</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/redox-reactions.pdf" target="_blank">Redox Reactions</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/hydrogen.pdf" target="_blank">Hydrogen</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/s-block-elements.pdf" target="_blank">s-Block Elements</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/some-p-block-elements.pdf" target="_blank">Some p-Block Elements</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/organic-chemistry-some-basic-principles.pdf" target="_blank">Organic Chemistry: Some Basic Principles and Techniques</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/hydrocarbons.pdf" target="_blank">Hydrocarbons</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/environmental-chemistry.pdf" target="_blank">Environmental Chemistry</a></li>
+            </ul>
+            <div class="class-title">Class 12</div>
+            <ul class="chapter-list">
+                <li><a class="chapter-link" href="notes/chemistry/solid-state.pdf" target="_blank">Solid State</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/solutions.pdf" target="_blank">Solutions</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/electrochemistry.pdf" target="_blank">Electrochemistry</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/chemical-kinetics.pdf" target="_blank">Chemical Kinetics</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/surface-chemistry.pdf" target="_blank">Surface Chemistry</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/general-principles-and-processes-of-isolation-of-elements.pdf" target="_blank">General Principles and Processes of Isolation of Elements</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/p-block-elements.pdf" target="_blank">p-Block Elements</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/d-and-f-block-elements.pdf" target="_blank">d and f Block Elements</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/coordination-compounds.pdf" target="_blank">Coordination Compounds</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/haloalkanes-and-haloarenes.pdf" target="_blank">Haloalkanes and Haloarenes</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/alcohols-phenols-and-ethers.pdf" target="_blank">Alcohols, Phenols and Ethers</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/aldehydes-ketones-and-carboxylic-acids.pdf" target="_blank">Aldehydes, Ketones and Carboxylic Acids</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/organic-compounds-containing-nitrogen.pdf" target="_blank">Organic Compounds Containing Nitrogen</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/biomolecules.pdf" target="_blank">Biomolecules</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/polymers.pdf" target="_blank">Polymers</a></li>
+                <li><a class="chapter-link" href="notes/chemistry/chemistry-in-everyday-life.pdf" target="_blank">Chemistry in Everyday Life</a></li>
+            </ul>
+        </div>
+
+        <!-- Biology -->
+        <div class="subject-card">
+            <div class="subject-title">Biology</div>
+            <div class="class-title">Class 11</div>
+            <ul class="chapter-list">
+                <li><a class="chapter-link" href="notes/biology/the-living-world.pdf" target="_blank">The Living World</a></li>
+                <li><a class="chapter-link" href="notes/biology/biological-classification.pdf" target="_blank">Biological Classification</a></li>
+                <li><a class="chapter-link" href="notes/biology/plant-kingdom.pdf" target="_blank">Plant Kingdom</a></li>
+                <li><a class="chapter-link" href="notes/biology/animal-kingdom.pdf" target="_blank">Animal Kingdom</a></li>
+                <li><a class="chapter-link" href="notes/biology/morphology-of-flowering-plants.pdf" target="_blank">Morphology of Flowering Plants</a></li>
+                <li><a class="chapter-link" href="notes/biology/anatomy-of-flowering-plants.pdf" target="_blank">Anatomy of Flowering Plants</a></li>
+                <li><a class="chapter-link" href="notes/biology/structural-organisation-in-animals.pdf" target="_blank">Structural Organisation in Animals</a></li>
+                <li><a class="chapter-link" href="notes/biology/cell-the-unit-of-life.pdf" target="_blank">Cell: The Unit of Life</a></li>
+                <li><a class="chapter-link" href="notes/biology/biomolecules.pdf" target="_blank">Biomolecules</a></li>
+                <li><a class="chapter-link" href="notes/biology/cell-cycle-and-cell-division.pdf" target="_blank">Cell Cycle and Cell Division</a></li>
+                <li><a class="chapter-link" href="notes/biology/transport-in-plants.pdf" target="_blank">Transport in Plants</a></li>
+                <li><a class="chapter-link" href="notes/biology/mineral-nutrition.pdf" target="_blank">Mineral Nutrition</a></li>
+                <li><a class="chapter-link" href="notes/biology/photosynthesis-in-higher-plants.pdf" target="_blank">Photosynthesis in Higher Plants</a></li>
+                <li><a class="chapter-link" href="notes/biology/respiration-in-plants.pdf" target="_blank">Respiration in Plants</a></li>
+                <li><a class="chapter-link" href="notes/biology/plant-growth-and-development.pdf" target="_blank">Plant Growth and Development</a></li>
+                <li><a class="chapter-link" href="notes/biology/digestion-and-absorption.pdf" target="_blank">Digestion and Absorption</a></li>
+                <li><a class="chapter-link" href="notes/biology/breathing-and-exchange-of-gases.pdf" target="_blank">Breathing and Exchange of Gases</a></li>
+                <li><a class="chapter-link" href="notes/biology/body-fluids-and-circulation.pdf" target="_blank">Body Fluids and Circulation</a></li>
+                <li><a class="chapter-link" href="notes/biology/excretory-products-and-their-elimination.pdf" target="_blank">Excretory Products and their Elimination</a></li>
+                <li><a class="chapter-link" href="notes/biology/locomotion-and-movement.pdf" target="_blank">Locomotion and Movement</a></li>
+                <li><a class="chapter-link" href="notes/biology/neural-control-and-coordination.pdf" target="_blank">Neural Control and Coordination</a></li>
+                <li><a class="chapter-link" href="notes/biology/chemical-coordination-and-integration.pdf" target="_blank">Chemical Coordination and Integration</a></li>
+            </ul>
+            <div class="class-title">Class 12</div>
+            <ul class="chapter-list">
+                <li><a class="chapter-link" href="notes/biology/reproduction-in-organisms.pdf" target="_blank">Reproduction in Organisms</a></li>
+                <li><a class="chapter-link" href="notes/biology/sexual-reproduction-in-flowering-plants.pdf" target="_blank">Sexual Reproduction in Flowering Plants</a></li>
+                <li><a class="chapter-link" href="notes/biology/human-reproduction.pdf" target="_blank">Human Reproduction</a></li>
+                <li><a class="chapter-link" href="notes/biology/reproductive-health.pdf" target="_blank">Reproductive Health</a></li>
+                <li><a class="chapter-link" href="notes/biology/principles-of-inheritance-and-variation.pdf" target="_blank">Principles of Inheritance and Variation</a></li>
+                <li><a class="chapter-link" href="notes/biology/molecular-basis-of-inheritance.pdf" target="_blank">Molecular Basis of Inheritance</a></li>
+                <li><a class="chapter-link" href="notes/biology/evolution.pdf" target="_blank">Evolution</a></li>
+                <li><a class="chapter-link" href="notes/biology/human-health-and-disease.pdf" target="_blank">Human Health and Disease</a></li>
+                <li><a class="chapter-link" href="notes/biology/strategies-for-enhancement-in-food-production.pdf" target="_blank">Strategies for Enhancement in Food Production</a></li>
+                <li><a class="chapter-link" href="notes/biology/microbes-in-human-welfare.pdf" target="_blank">Microbes in Human Welfare</a></li>
+                <li><a class="chapter-link" href="notes/biology/biotechnology-principles-and-processes.pdf" target="_blank">Biotechnology: Principles and Processes</a></li>
+                <li><a class="chapter-link" href="notes/biology/biotechnology-and-its-applications.pdf" target="_blank">Biotechnology and its Applications</a></li>
+                <li><a class="chapter-link" href="notes/biology/organisms-and-populations.pdf" target="_blank">Organisms and Populations</a></li>
+                <li><a class="chapter-link" href="notes/biology/ecosystem.pdf" target="_blank">Ecosystem</a></li>
+                <li><a class="chapter-link" href="notes/biology/biodiversity-and-conservation.pdf" target="_blank">Biodiversity and Conservation</a></li>
+                <li><a class="chapter-link" href="notes/biology/environmental-issues.pdf" target="_blank">Environmental Issues</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

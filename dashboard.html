@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | AVNOWLEDGE</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 220px;
+    background-color: #1e1e2f;
+    color: white;
+    height: 100vh;
+    padding: 2rem 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #00d2ff;
+  }
+
+  .sidebar a {
+    display: block;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0;
+    color: #bbb;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
+
+  .sidebar a:hover {
+    background-color: #33334d;
+    color: #fff;
+  }
+
+  /* Main content */
+  .main {
+    margin-left: 220px;
+    padding: 2rem;
+    flex: 1;
+  }
+
+  .top-bar {
+    background-color: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .top-bar h1 {
+    font-size: 1.2rem;
+    color: #333;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+  .card h3 {
+    margin-bottom: 0.75rem;
+    color: #2962ff;
+  }
+
+  .card p {
+    color: #555;
+  }
+
+  .quote {
+    margin-top: 2rem;
+    font-style: italic;
+    color: #888;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 1rem;
+      z-index: 10;
+    }
+
+    .sidebar h2 {
+      display: none;
+    }
+
+    .sidebar a {
+      margin: 0;
+      padding: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    .main {
+      margin-left: 0;
+      padding: 1rem;
+      margin-top: 80px;
+    }
+
+    .top-bar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .top-bar h1 {
+      font-size: 1rem;
+    }
+
+    .cards {
+      grid-template-columns: 1fr;
+    }
+
+    .quote {
+      font-size: 0.8rem;
+    }
+  }
+</style>
+
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>AVNOWLEDGE</h2>
+    <a href="notes.html">📘 Notes</a>
+    <a href="videos.html">🎥 Videos</a>
+    <a href="tests.html">📝 Tests</a>
+    <a href="tracker.html">📌 Tracker</a>
+    <a href="index.html" onclick="logout()">🚪 Logout</a>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="top-bar">
+      <h1>Welcome to your Dashboard!</h1>
+      <span id="userEmail" style="font-size: 0.9rem; color: #666;"></span>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h3>📘 Notes</h3>
+        <p>Access structured Biology, Physics, and Chemistry notes.</p>
+      </div>
+      <div class="card">
+        <h3>🎥 Video Lectures</h3>
+        <p>Watch curated NEET lectures, just like your favorite educators.</p>
+      </div>
+      <div class="card">
+        <h3>📝 Test Papers</h3>
+        <p>Take topic-wise and full mock tests with analysis.</p>
+      </div>
+    </div>
+
+    <p class="quote">"Not just for all students — but for someone who always gave her best, even when it was tough."</p>
+  </main>
+
+  <!-- Firebase Auth and Logout -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDmUWyxzFNwPzSdchRkhBeRvt6WxGCBCRc",
+      authDomain: "avnowledge.firebaseapp.com",
+      projectId: "avnowledge",
+      storageBucket: "avnowledge.appspot.com",
+      messagingSenderId: "178437092267",
+      appId: "1:178437092267:web:25cd859c76629080e498ee",
+      measurementId: "G-CHDCB73WNY"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const logout = () => {
+      signOut(auth).then(() => {
+        window.location.href = 'login.html';
+      });
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("userEmail").textContent = `Logged in as: ${user.email}`;
+      } else {
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
+</body>
+</html>
+

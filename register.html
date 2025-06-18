@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register | AVNOWLEDGE</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body.register-page {
+      background-color: #121212;
+      color: #f0f0f0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .register-container {
+      background-color: #1e1e1e;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.7);
+      width: 350px;
+      color: #f0f0f0;
+      text-align: center;
+    }
+    input, button {
+      font-family: 'Poppins', sans-serif;
+      background-color: #333;
+      border: none;
+      color: #f0f0f0;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border-radius: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    input::placeholder {
+      color: #bbb;
+    }
+    button {
+      background-color: #2962ff;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0039cb;
+    }
+    .error-message {
+      color: #ff6b6b;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .login-link {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+    .login-link a {
+      color: #2962ff;
+      text-decoration: none;
+    }
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script type="module" defer>
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDmUWyxzFNwPzSdchRkhBeRvt6WxGCBCRc",
+      authDomain: "avnowledge.firebaseapp.com",
+      projectId: "avnowledge",
+      storageBucket: "avnowledge.appspot.com",
+      messagingSenderId: "178437092267",
+      appId: "1:178437092267:web:25cd859c76629080e498ee",
+      measurementId: "G-CHDCB73WNY"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('registerForm');
+      const errorMsg = document.getElementById('errorMsg');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorMsg.textContent = '';
+
+        const email = form.email.value;
+        const password = form.password.value;
+        const confirmPassword = form.confirmPassword.value;
+
+        if (password !== confirmPassword) {
+          errorMsg.textContent = 'Passwords do not match!';
+          return;
+        }
+
+        try {
+          await createUserWithEmailAndPassword(auth, email, password);
+          // Registration successful, redirect to dashboard or login
+          window.location.href = 'dashboard.html';
+        } catch (error) {
+          errorMsg.textContent = error.message;
+        }
+      });
+    });
+  </script>
+</head>
+<body class="register-page">
+  <div class="register-container">
+    <h2>Create an Account</h2>
+    <form id="registerForm">
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required minlength="6" />
+      <input type="password" name="confirmPassword" placeholder="Confirm Password" required minlength="6" />
+      <button type="submit">Register</button>
+    </form>
+    <p id="errorMsg" class="error-message"></p>
+    <p class="login-link">Already have an account? <a href="login.html">Login here</a></p>
+  </div>
+</body>
+</html>
