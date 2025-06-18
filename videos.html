@@ -1,197 +1,377 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AVNOWLEDGE - NEET 2026 Video Lectures</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f0f2f5;
-      color: #2c3e50;
-    }
-    header, footer {
-      background: linear-gradient(to right, #34495e, #2c3e50);
-      color: #fff;
-      padding: 1.5rem 1rem;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-    .container {
-      padding: 2rem 1rem;
-      max-width: 1000px;
-      margin: auto;
-    }
-    .subject-buttons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    .subject-buttons button {
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      background: #3498db;
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: 0.3s;
-    }
-    .subject-buttons button:hover {
-      background: #2980b9;
-    }
-    .lessons, .video-player, .notes-section {
-      display: none;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .chapter-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    .chapter-list button {
-      padding: 0.75rem 1rem;
-      border: none;
-      border-radius: 8px;
-      background-color: #ecf0f1;
-      color: #2c3e50;
-      font-weight: 600;
-      text-align: left;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .chapter-list button:hover {
-      background-color: #d0d7de;
-    }
-    .video-player iframe {
-      width: 100%;
-      height: 400px;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    .progress-bar {
-      height: 10px;
-      background: #ecf0f1;
-      border-radius: 5px;
-      margin-top: 0.5rem;
-      overflow: hidden;
-    }
-    .progress {
-      height: 100%;
-      background: #3498db;
-      width: 0%;
-    }
-    .notes-section textarea {
-      width: 100%;
-      height: 100px;
-      margin-top: 1rem;
-      padding: 0.75rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-family: 'Poppins', sans-serif;
-      resize: vertical;
-    }
-    footer {
-      font-size: 0.9rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avnowledge NEET Preparation - Videos</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:600,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sky-blue: #53b8e6;
+            --sky-blue-light: #e3f5ff;
+            --sky-blue-dark: #2186c4;
+            --white: #fff;
+            --text: #222;
+            --shadow: 0 6px 24px rgba(70, 180, 255, 0.08);
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, var(--sky-blue-light), var(--sky-blue));
+            font-family: 'Montserrat', Arial, sans-serif;
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--sky-blue-dark);
+            color: var(--white);
+            padding: 18px 0;
+            text-align: center;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+            box-shadow: 0 2px 12px rgba(70,180,255,0.15);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: var(--white);
+            border-radius: 22px;
+            box-shadow: var(--shadow);
+            padding: 30px 28px 60px 28px;
+        }
+
+        .subject-list, .chapter-list {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 32px 0;
+        }
+
+        .subject-card, .chapter-card {
+            background: var(--sky-blue-light);
+            border-radius: 18px;
+            box-shadow: 0 2px 12px rgba(70, 180, 255, 0.07);
+            padding: 36px 40px;
+            min-width: 180px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.12s, box-shadow 0.12s;
+            font-size: 1.18rem;
+            font-weight: 600;
+            color: var(--sky-blue-dark);
+            border: 2px solid transparent;
+        }
+        .subject-card:hover, .chapter-card:hover {
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 8px 28px rgba(70,180,255,0.13);
+            background: var(--sky-blue);
+            color: var(--white);
+            border: 2px solid var(--sky-blue-dark);
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--sky-blue-dark);
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: color 0.13s;
+        }
+        .back-btn:hover { color: var(--sky-blue); text-decoration: underline; }
+
+        .video-page {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 0;
+        }
+
+        .video-area {
+            flex: 1 1 350px;
+            max-width: 520px;
+        }
+        .video-area video {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 17px;
+        }
+
+        .progress-section {
+            margin-top: 8px;
+        }
+        .progress-label {
+            font-size: 0.98rem;
+            margin-bottom: 7px;
+            color: var(--sky-blue-dark);
+        }
+        .progress-bar {
+            width: 100%;
+            background: var(--sky-blue-light);
+            border-radius: 14px;
+            overflow: hidden;
+            height: 12px;
+        }
+        .progress-bar-inner {
+            background: linear-gradient(90deg, var(--sky-blue), var(--sky-blue-dark));
+            height: 100%;
+            width: 0;
+            transition: width .25s;
+            border-radius: 14px 0 0 14px;
+        }
+
+        .notes-area {
+            flex: 1 1 220px;
+            background: #f9fbfe;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(70, 180, 255, 0.05);
+            padding: 22px 20px;
+            min-width: 200px;
+            max-height: 410px;
+            overflow-y: auto;
+        }
+        .notes-area h3 {
+            margin-top: 0;
+            color: var(--sky-blue-dark);
+            margin-bottom: 13px;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+        .notes-area ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        @media (max-width: 800px) {
+            .container { padding: 14px 5px 30px 5px; }
+            .video-page { flex-direction: column; gap: 16px; }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>AVNOWLEDGE - Video Lectures</h1>
-    <p>Select your subject to begin learning</p>
-  </header>
-
-  <div class="container">
-    <div class="subject-buttons">
-      <button onclick="showLessons('physics')">Physics</button>
-      <button onclick="showLessons('chemistry')">Chemistry</button>
-      <button onclick="showLessons('biology')">Biology</button>
+    <header>Avnowledge NEET Videos</header>
+    <div class="container" id="main-content">
+        <!-- Dynamic Content Here -->
     </div>
+    <script>
+        // NEET 2026 chapters (simplified)
+        const chapters = {
+            Physics: [
+                "Physical World & Measurement",
+                "Kinematics",
+                "Laws of Motion",
+                "Work, Energy & Power",
+                "System of Particles & Rotational Motion",
+                "Gravitation",
+                "Properties of Bulk Matter",
+                "Thermodynamics",
+                "Oscillations & Waves",
+                "Electrostatics",
+                "Current Electricity",
+                "Magnetic Effects of Current & Magnetism",
+                "Electromagnetic Induction & Alternating Currents",
+                "Electromagnetic Waves",
+                "Optics",
+                "Dual Nature of Radiation & Matter",
+                "Atoms & Nuclei",
+                "Electronic Devices"
+            ],
+            Chemistry: [
+                "Some Basic Concepts of Chemistry",
+                "Structure of Atom",
+                "Classification of Elements & Periodicity",
+                "Chemical Bonding & Molecular Structure",
+                "States of Matter: Gases & Liquids",
+                "Thermodynamics",
+                "Equilibrium",
+                "Redox Reactions",
+                "Hydrogen",
+                "s-Block Element (Alkali & Alkaline earth metals)",
+                "Some p-Block Elements",
+                "Organic Chemistry: Basic Principles & Techniques",
+                "Hydrocarbons",
+                "Environmental Chemistry",
+                "Solid State",
+                "Solutions",
+                "Electrochemistry",
+                "Chemical Kinetics",
+                "Surface Chemistry",
+                "General Principles & Processes of Isolation of Elements",
+                "p-Block Elements",
+                "d- and f-Block Elements",
+                "Coordination Compounds",
+                "Haloalkanes & Haloarenes",
+                "Alcohols, Phenols & Ethers",
+                "Aldehydes, Ketones & Carboxylic Acids",
+                "Organic Compounds Containing Nitrogen",
+                "Biomolecules",
+                "Polymers",
+                "Chemistry in Everyday Life"
+            ],
+            Biology: [
+                "The Living World",
+                "Biological Classification",
+                "Plant Kingdom",
+                "Animal Kingdom",
+                "Morphology of Flowering Plants",
+                "Anatomy of Flowering Plants",
+                "Structural Organisation in Animals",
+                "Cell: The Unit of Life",
+                "Biomolecules",
+                "Cell Cycle & Cell Division",
+                "Transport in Plants",
+                "Mineral Nutrition",
+                "Photosynthesis in Higher Plants",
+                "Respiration in Plants",
+                "Plant - Growth & Development",
+                "Digestion & Absorption",
+                "Breathing & Exchange of Gases",
+                "Body Fluids & Circulation",
+                "Excretory Products & Their Elimination",
+                "Locomotion & Movement",
+                "Neural Control & Coordination",
+                "Chemical Coordination & Integration",
+                "Reproduction in Organisms",
+                "Sexual Reproduction in Flowering Plants",
+                "Human Reproduction",
+                "Reproductive Health",
+                "Principles of Inheritance & Variation",
+                "Molecular Basis of Inheritance",
+                "Evolution",
+                "Human Health & Diseases",
+                "Strategies for Enhancement in Food Production",
+                "Microbes in Human Welfare",
+                "Biotechnology: Principles & Processes",
+                "Biotechnology & Its Applications",
+                "Organisms & Populations",
+                "Ecosystem",
+                "Biodiversity & Conservation",
+                "Environmental Issues"
+            ]
+        };
 
-    <div id="physics" class="lessons chapter-list">
-      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID1', 'physics')">Motion in a Straight Line</button>
-      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID2', 'physics')">Laws of Motion</button>
-    </div>
+        // Sample notes per chapter (replace with real content as needed)
+        const sampleNotes = [
+            "Key concepts are highlighted in the video.",
+            "Remember important formulas and their derivations.",
+            "Review previous year NEET questions for this chapter.",
+            "Pay attention to diagrams and their labeling.",
+            "Practice all solved and unsolved examples."
+        ];
 
-    <div id="chemistry" class="lessons chapter-list">
-      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID3', 'chemistry')">Basic Concepts of Chemistry</button>
-      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID4', 'chemistry')">Chemical Bonding</button>
-    </div>
+        // Sample video links (replace with your own video URLs)
+        function getSampleVideo(chapter, subject) {
+            return "https://www.youtube.com/embed/dQw4w9WgXcQ";
+        }
 
-    <div id="biology" class="lessons chapter-list">
-      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID5', 'biology')">Diversity of Living Organisms</button>
-      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID6', 'biology')">Cell Structure and Function</button>
-    </div>
+        // Progress tracking (stored in localStorage)
+        function getProgressKey(subject, chapter) {
+            return `avnowledge_progress_${subject}_${chapter}`;
+        }
+        function getChapterProgress(subject, chapter) {
+            return parseInt(localStorage.getItem(getProgressKey(subject, chapter)) || "0", 10);
+        }
+        function setChapterProgress(subject, chapter, percent) {
+            localStorage.setItem(getProgressKey(subject, chapter), percent);
+        }
 
-    <div class="video-player" id="videoPlayer">
-      <iframe id="videoFrame" src="" allowfullscreen></iframe>
-      <div class="progress-bar"><div id="progress" class="progress"></div></div>
-    </div>
+        // UI rendering
+        const main = document.getElementById('main-content');
 
-    <div class="notes-section" id="notesSection">
-      <h3>Your Notes</h3>
-      <textarea id="userNotes" placeholder="Write your notes here..."></textarea>
-    </div>
-  </div>
+        function renderSubjects() {
+            main.innerHTML = `
+                <h2 style="text-align:center;color:var(--sky-blue-dark);margin-bottom:13px;">Choose a Subject</h2>
+                <div class="subject-list">
+                    ${Object.keys(chapters).map(subj => `
+                        <div class="subject-card" onclick="chooseSubject('${subj}')">${subj}</div>
+                    `).join('')}
+                </div>
+            `;
+        }
 
-  <footer>
-    <p>&copy; 2025 AVNOWLEDGE. Built for learners, inspired by two letters.</p>
-  </footer>
+        function renderChapters(subject) {
+            main.innerHTML = `
+                <button class="back-btn" onclick="renderSubjects()">← Back to Subjects</button>
+                <h2 style="text-align:center;color:var(--sky-blue-dark);margin-bottom:13px;">${subject} Chapters</h2>
+                <div class="chapter-list">
+                    ${chapters[subject].map(chap => `
+                        <div class="chapter-card" onclick="chooseChapter('${subject}','${chap.replace(/'/g, "\\'")}')">
+                            ${chap}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
 
-  <script>
-    function showLessons(subject) {
-      document.querySelectorAll('.lessons').forEach(section => section.style.display = 'none');
-      document.querySelector('.video-player').style.display = 'none';
-      document.querySelector('.notes-section').style.display = 'none';
-      document.getElementById(subject).style.display = 'grid';
-      document.querySelector('.subject-buttons').style.display = 'none';
-    }
+        function renderVideoPage(subject, chapter) {
+            const prog = getChapterProgress(subject, chapter);
+            main.innerHTML = `
+                <button class="back-btn" onclick="renderChapters('${subject}')">← Back to ${subject}</button>
+                <h2 style="text-align:center;color:var(--sky-blue-dark);margin-bottom:13px;">${chapter}</h2>
+                <div class="video-page">
+                    <div class="video-area">
+                        <video id="videoPlayer" controls poster="https://img.icons8.com/color/200/000000/youtube-play.png">
+                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                            Your browser does not support HTML video.
+                        </video>
+                        <div class="progress-section">
+                            <div class="progress-label">Progress: <span id="progressVal">${prog}</span>%</div>
+                            <div class="progress-bar"><div class="progress-bar-inner" id="progressBar" style="width:${prog}%"></div></div>
+                        </div>
+                        <button style="margin-top:16px;background:var(--sky-blue);color:var(--white);border:none;padding:9px 22px;border-radius:8px;font-weight:600;cursor:pointer;box-shadow:0 2px 6px rgba(70,180,255,0.11);" 
+                            onclick="markComplete('${subject}','${chapter.replace(/'/g, "\\'")}')">Mark as Complete</button>
+                    </div>
+                    <div class="notes-area">
+                        <h3>Notes</h3>
+                        <ul>
+                            ${sampleNotes.map(note => `<li>${note}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+            // Progress bar updating on video end
+            setTimeout(() => {
+                const video = document.getElementById('videoPlayer');
+                video.onended = () => {
+                    setChapterProgress(subject, chapter, 100);
+                    updateProgressUI(100);
+                };
+                video.ontimeupdate = () => {
+                    if(video.duration) {
+                        let percent = Math.round((video.currentTime / video.duration) * 100);
+                        if(percent > getChapterProgress(subject, chapter)) {
+                            setChapterProgress(subject, chapter, percent);
+                            updateProgressUI(percent);
+                        }
+                    }
+                };
+            }, 300);
+        }
 
-    function playVideo(link, subject) {
-      const videoFrame = document.getElementById('videoFrame');
-      videoFrame.src = link;
-      document.querySelector('.video-player').style.display = 'block';
-      document.getElementById('notesSection').style.display = 'block';
-      loadNotes(link);
-    }
+        function updateProgressUI(percent) {
+            document.getElementById('progressVal').textContent = percent;
+            document.getElementById('progressBar').style.width = percent + '%';
+        }
 
-    // Progress bar simulation
-    const progress = document.getElementById('progress');
-    setInterval(() => {
-      const width = parseInt(progress.style.width) || 0;
-      if (width < 100) progress.style.width = (width + 1) + '%';
-    }, 300);
+        // Expose navigation functions globally for onclick
+        window.chooseSubject = function(subject) {
+            renderChapters(subject);
+        }
+        window.chooseChapter = function(subject, chapter) {
+            renderVideoPage(subject, chapter);
+        }
+        window.markComplete = function(subject, chapter) {
+            setChapterProgress(subject, chapter, 100);
+            updateProgressUI(100);
+        }
 
-    // Notes localStorage
-    const notesArea = document.getElementById('userNotes');
-    notesArea.addEventListener('input', () => {
-      const currentVideo = document.getElementById('videoFrame').src;
-      localStorage.setItem('notes_' + currentVideo, notesArea.value);
-    });
-
-    function loadNotes(videoLink) {
-      notesArea.value = localStorage.getItem('notes_' + videoLink) || '';
-    }
-  </script>
+        // Initial render
+        renderSubjects();
+    </script>
 </body>
 </html>
