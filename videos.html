@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEET 2026 Video Lectures</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6fa;
+    }
+    header, footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .container {
+      padding: 2rem;
+    }
+    .subject {
+      margin-bottom: 3rem;
+    }
+    .subject h2 {
+      color: #34495e;
+    }
+    .chapter {
+      background: white;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      margin-top: 1rem;
+    }
+    textarea {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+      resize: vertical;
+    }
+    .progress {
+      width: 100%;
+      background: #ecf0f1;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+    .progress-bar {
+      height: 10px;
+      background: #27ae60;
+      width: 0%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AVNOWLEDGE - Video Lectures</h1>
+    <p>Watch, learn, and take notes. All progress is saved locally.</p>
+  </header>
+  <div class="container">
+
+    <!-- Physics Section -->
+    <div class="subject">
+      <h2>📘 Physics</h2>
+      <div class="chapter"><h3>Motion in a Straight Line</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID1"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
+      <div class="chapter"><h3>Laws of Motion</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID2"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
+      <div class="chapter"><h3>Work, Energy and Power</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID3"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
+      <!-- Add more Physics chapters similarly -->
+    </div>
+
+    <!-- Chemistry Section -->
+    <div class="subject">
+      <h2>🧪 Chemistry</h2>
+      <div class="chapter"><h3>Basic Concepts of Chemistry</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID4"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
+      <div class="chapter"><h3>Chemical Bonding</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID5"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
+      <div class="chapter"><h3>Thermodynamics</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID6"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
+      <!-- Add more Chemistry chapters similarly -->
+    </div>
+
+    <!-- Biology Section -->
+    <div class="subject">
+      <h2>🧬 Biology</h2>
+      <div class="chapter"><h3>Diversity of Living Organisms</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID7"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
+      <div class="chapter"><h3>Cell Structure and Function</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID8"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
+      <div class="chapter"><h3>Human Physiology</h3><iframe src="https://www.youtube.com/embed/VIDEO_ID9"></iframe><div class="progress"><div class="progress-bar"></div></div><textarea placeholder="Write your notes here..."></textarea></div>
+      <!-- Add more Biology chapters similarly -->
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2025 AVNOWLEDGE. Built for learners, inspired by two letters.</p>
+  </footer>
+
+  <script>
+    // Save and Load Notes
+    document.querySelectorAll("textarea").forEach((textarea, index) => {
+      const key = "notes-" + index;
+      textarea.value = localStorage.getItem(key) || "";
+      textarea.addEventListener("input", () => {
+        localStorage.setItem(key, textarea.value);
+      });
+    });
+  </script>
+</body>
+</html>
