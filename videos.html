@@ -415,6 +415,7 @@
         }
 
         function renderVideoPage(subject, chapter) {
+            // Always load the latest notes from localStorage
             const prog = getChapterProgress(subject, chapter);
             const notes = getChapterNotes(subject, chapter);
             main.innerHTML = `
@@ -446,7 +447,6 @@
                 </div>
                 <div class="reports-section" id="reports-section"></div>
             `;
-            // Progress bar updating on video end
             setTimeout(() => {
                 const video = document.getElementById('videoPlayer');
                 video.onended = () => {
@@ -463,14 +463,23 @@
                         }
                     }
                 };
-                // Notes save
-                document.getElementById('saveNotesBtn').onclick = function() {
-                    const val = document.getElementById('notesTextarea').value;
-                    setChapterNotes(subject, chapter, val);
-                    const ind = document.getElementById('notesSavedIndicator');
-                    ind.style.opacity = 1;
-                    setTimeout(() => ind.style.opacity = 0, 1200);
+                // Notes save logic: stays forever in localStorage per chapter
+                const notesTextarea = document.getElementById('notesTextarea');
+                const saveBtn = document.getElementById('saveNotesBtn');
+                const savedInd = document.getElementById('notesSavedIndicator');
+                saveBtn.onclick = function() {
+                    setChapterNotes(subject, chapter, notesTextarea.value);
+                    savedInd.style.opacity = 1;
+                    setTimeout(() => savedInd.style.opacity = 0, 1200);
                 };
+                // Optional: Autosave on Ctrl+Enter
+                notesTextarea.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey && e.key === 'Enter') {
+                        setChapterNotes(subject, chapter, notesTextarea.value);
+                        savedInd.style.opacity = 1;
+                        setTimeout(() => savedInd.style.opacity = 0, 1200);
+                    }
+                });
             }, 300);
             renderReportsSection(subject);
         }
