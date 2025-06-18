@@ -53,7 +53,7 @@
     .subject-buttons button:hover {
       background: #2980b9;
     }
-    .lessons, .video-player {
+    .lessons, .video-player, .notes-section {
       display: none;
       animation: fadeIn 0.5s ease-in-out;
     }
@@ -88,6 +88,28 @@
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
+    .progress-bar {
+      height: 10px;
+      background: #ecf0f1;
+      border-radius: 5px;
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+    .progress {
+      height: 100%;
+      background: #3498db;
+      width: 0%;
+    }
+    .notes-section textarea {
+      width: 100%;
+      height: 100px;
+      margin-top: 1rem;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-family: 'Poppins', sans-serif;
+      resize: vertical;
+    }
     footer {
       font-size: 0.9rem;
     }
@@ -107,25 +129,28 @@
     </div>
 
     <div id="physics" class="lessons chapter-list">
-      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID1')">Motion in a Straight Line</button>
-      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID2')">Laws of Motion</button>
-      <!-- Add all physics chapters -->
+      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID1', 'physics')">Motion in a Straight Line</button>
+      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID2', 'physics')">Laws of Motion</button>
     </div>
 
     <div id="chemistry" class="lessons chapter-list">
-      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID3')">Basic Concepts of Chemistry</button>
-      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID4')">Chemical Bonding</button>
-      <!-- Add all chemistry chapters -->
+      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID3', 'chemistry')">Basic Concepts of Chemistry</button>
+      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID4', 'chemistry')">Chemical Bonding</button>
     </div>
 
     <div id="biology" class="lessons chapter-list">
-      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID5')">Diversity of Living Organisms</button>
-      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID6')">Cell Structure and Function</button>
-      <!-- Add all biology chapters -->
+      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID5', 'biology')">Diversity of Living Organisms</button>
+      <button onclick="playVideo('https://www.youtube.com/embed/VIDEO_ID6', 'biology')">Cell Structure and Function</button>
     </div>
 
     <div class="video-player" id="videoPlayer">
       <iframe id="videoFrame" src="" allowfullscreen></iframe>
+      <div class="progress-bar"><div id="progress" class="progress"></div></div>
+    </div>
+
+    <div class="notes-section" id="notesSection">
+      <h3>Your Notes</h3>
+      <textarea id="userNotes" placeholder="Write your notes here..."></textarea>
     </div>
   </div>
 
@@ -137,12 +162,35 @@
     function showLessons(subject) {
       document.querySelectorAll('.lessons').forEach(section => section.style.display = 'none');
       document.querySelector('.video-player').style.display = 'none';
+      document.querySelector('.notes-section').style.display = 'none';
       document.getElementById(subject).style.display = 'grid';
+      document.querySelector('.subject-buttons').style.display = 'none';
     }
 
-    function playVideo(link) {
-      document.getElementById('videoFrame').src = link;
+    function playVideo(link, subject) {
+      const videoFrame = document.getElementById('videoFrame');
+      videoFrame.src = link;
       document.querySelector('.video-player').style.display = 'block';
+      document.getElementById('notesSection').style.display = 'block';
+      loadNotes(link);
+    }
+
+    // Progress bar simulation
+    const progress = document.getElementById('progress');
+    setInterval(() => {
+      const width = parseInt(progress.style.width) || 0;
+      if (width < 100) progress.style.width = (width + 1) + '%';
+    }, 300);
+
+    // Notes localStorage
+    const notesArea = document.getElementById('userNotes');
+    notesArea.addEventListener('input', () => {
+      const currentVideo = document.getElementById('videoFrame').src;
+      localStorage.setItem('notes_' + currentVideo, notesArea.value);
+    });
+
+    function loadNotes(videoLink) {
+      notesArea.value = localStorage.getItem('notes_' + videoLink) || '';
     }
   </script>
 </body>
