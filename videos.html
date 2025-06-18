@@ -147,9 +147,79 @@
             margin: 0;
             padding-left: 20px;
         }
+        .notes-textarea {
+            width: 100%;
+            min-height: 70px;
+            border-radius: 8px;
+            border: 1px solid #b6d2ea;
+            padding: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            resize: vertical;
+            background: #fff;
+            box-sizing: border-box;
+        }
+        .notes-save-btn {
+            background: var(--sky-blue-dark);
+            color: var(--white);
+            border: none;
+            padding: 7px 16px;
+            border-radius: 7px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+        .notes-save-btn:active {
+            background: var(--sky-blue);
+        }
+        .notes-saved-indicator {
+            color: #43b66a;
+            font-size: 0.93em;
+            margin-left: 11px;
+            transition: opacity 0.25s;
+        }
+
+        .reports-section {
+            margin-top: 40px;
+            background: #f3faff;
+            border-radius: 15px;
+            padding: 28px 22px;
+            box-shadow: 0 2px 12px rgba(70,180,255,0.07);
+        }
+        .report-bar {
+            background: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+            width: 220px;
+            height: 18px;
+            margin-bottom: 7px;
+        }
+        .report-bar-inner {
+            background: #4caf50;
+            height: 100%;
+            transition: width .3s;
+        }
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+        .report-table th, .report-table td {
+            padding: 6px 10px;
+            text-align: left;
+        }
+        .report-table th {
+            background: #eaf4fa;
+            color: #2186c4;
+        }
+        .report-table td {
+            background: #f8fbfe;
+        }
         @media (max-width: 800px) {
             .container { padding: 14px 5px 30px 5px; }
             .video-page { flex-direction: column; gap: 16px; }
+            .report-bar { width: 100%; }
         }
     </style>
 </head>
@@ -264,11 +334,6 @@
             "Practice all solved and unsolved examples."
         ];
 
-        // Sample video links (replace with your own video URLs)
-        function getSampleVideo(chapter, subject) {
-            return "https://www.youtube.com/embed/dQw4w9WgXcQ";
-        }
-
         // Progress tracking (stored in localStorage)
         function getProgressKey(subject, chapter) {
             return `avnowledge_progress_${subject}_${chapter}`;
@@ -278,6 +343,43 @@
         }
         function setChapterProgress(subject, chapter, percent) {
             localStorage.setItem(getProgressKey(subject, chapter), percent);
+        }
+
+        // Notes storage (per chapter, in localStorage)
+        function getNotesKey(subject, chapter) {
+            return `avnowledge_notes_${subject}_${chapter}`;
+        }
+        function getChapterNotes(subject, chapter) {
+            return localStorage.getItem(getNotesKey(subject, chapter)) || "";
+        }
+        function setChapterNotes(subject, chapter, notes) {
+            localStorage.setItem(getNotesKey(subject, chapter), notes);
+        }
+
+        // Calculate report data
+        function getProgressReport() {
+            const report = {};
+            let grandTotal = 0, grandCompleted = 0;
+            for (const subject of Object.keys(chapters)) {
+                const subjChaps = chapters[subject];
+                let completed = 0;
+                for (const chap of subjChaps) {
+                    if (getChapterProgress(subject, chap) >= 100) completed++;
+                }
+                report[subject] = {
+                    total: subjChaps.length,
+                    completed,
+                    percent: Math.round((completed / subjChaps.length) * 100)
+                };
+                grandTotal += subjChaps.length;
+                grandCompleted += completed;
+            }
+            report.overall = {
+                percent: Math.round((grandCompleted / grandTotal) * 100),
+                completed: grandCompleted,
+                total: grandTotal
+            };
+            return report;
         }
 
         // UI rendering
@@ -291,7 +393,9 @@
                         <div class="subject-card" onclick="chooseSubject('${subj}')">${subj}</div>
                     `).join('')}
                 </div>
+                <div class="reports-section" id="reports-section"></div>
             `;
+            renderReportsSection();
         }
 
         function renderChapters(subject) {
@@ -305,11 +409,14 @@
                         </div>
                     `).join('')}
                 </div>
+                <div class="reports-section" id="reports-section"></div>
             `;
+            renderReportsSection(subject);
         }
 
         function renderVideoPage(subject, chapter) {
             const prog = getChapterProgress(subject, chapter);
+            const notes = getChapterNotes(subject, chapter);
             main.innerHTML = `
                 <button class="back-btn" onclick="renderChapters('${subject}')">← Back to ${subject}</button>
                 <h2 style="text-align:center;color:var(--sky-blue-dark);margin-bottom:13px;">${chapter}</h2>
@@ -328,11 +435,16 @@
                     </div>
                     <div class="notes-area">
                         <h3>Notes</h3>
-                        <ul>
+                        <textarea class="notes-textarea" id="notesTextarea" placeholder="Write your notes here...">${notes}</textarea>
+                        <br>
+                        <button class="notes-save-btn" id="saveNotesBtn">Save Notes</button>
+                        <span class="notes-saved-indicator" id="notesSavedIndicator" style="opacity:0;">Saved!</span>
+                        <ul style="margin-top:16px;">
                             ${sampleNotes.map(note => `<li>${note}</li>`).join('')}
                         </ul>
                     </div>
                 </div>
+                <div class="reports-section" id="reports-section"></div>
             `;
             // Progress bar updating on video end
             setTimeout(() => {
@@ -340,6 +452,7 @@
                 video.onended = () => {
                     setChapterProgress(subject, chapter, 100);
                     updateProgressUI(100);
+                    renderReportsSection();
                 };
                 video.ontimeupdate = () => {
                     if(video.duration) {
@@ -350,12 +463,100 @@
                         }
                     }
                 };
+                // Notes save
+                document.getElementById('saveNotesBtn').onclick = function() {
+                    const val = document.getElementById('notesTextarea').value;
+                    setChapterNotes(subject, chapter, val);
+                    const ind = document.getElementById('notesSavedIndicator');
+                    ind.style.opacity = 1;
+                    setTimeout(() => ind.style.opacity = 0, 1200);
+                };
             }, 300);
+            renderReportsSection(subject);
         }
 
         function updateProgressUI(percent) {
             document.getElementById('progressVal').textContent = percent;
             document.getElementById('progressBar').style.width = percent + '%';
+        }
+
+        // Reports Section Rendering
+        function renderReportsSection(subject) {
+            const el = document.getElementById('reports-section');
+            const report = getProgressReport();
+            if (!el) return;
+            
+            if (!subject) {
+                // Overall report
+                el.innerHTML = `
+                    <h3 style="color:var(--sky-blue-dark);margin-top:0;">Reports & Progress</h3>
+                    <div>
+                        <b>Overall Progress: ${report.overall.completed} / ${report.overall.total} chapters (${report.overall.percent}%)</b>
+                        <div class="report-bar"><div class="report-bar-inner" style="width:${report.overall.percent}%"></div></div>
+                    </div>
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Completed</th>
+                                <th>Total</th>
+                                <th>Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${Object.keys(chapters).map(subj => `
+                                <tr>
+                                    <td>${subj}</td>
+                                    <td>${report[subj].completed}</td>
+                                    <td>${report[subj].total}</td>
+                                    <td>
+                                        <div class="report-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+                                            <div class="report-bar-inner" style="width:${report[subj].percent}%;"></div>
+                                        </div>
+                                        <span style="margin-left:7px;">${report[subj].percent}%</span>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            } else {
+                // Subject report (per-chapter)
+                const subjChaps = chapters[subject];
+                el.innerHTML = `
+                    <h3 style="color:var(--sky-blue-dark);margin-top:0;">${subject} Progress</h3>
+                    <div>
+                        <b>${report[subject].completed} / ${report[subject].total} chapters completed (${report[subject].percent}%)</b>
+                        <div class="report-bar" style="width:160px;"><div class="report-bar-inner" style="width:${report[subject].percent}%"></div></div>
+                    </div>
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>Chapter</th>
+                                <th>Status</th>
+                                <th>Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${subjChaps.map(chap => {
+                                const p = getChapterProgress(subject, chap);
+                                return `
+                                    <tr>
+                                        <td>${chap}</td>
+                                        <td>${p >= 100 ? "<span style='color:green;'>Completed</span>" : "Incomplete"}</td>
+                                        <td>
+                                            <div class="report-bar" style="width:80px;display:inline-block;vertical-align:middle;">
+                                                <div class="report-bar-inner" style="width:${p}%;"></div>
+                                            </div>
+                                            <span style="margin-left:7px;">${p}%</span>
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
         }
 
         // Expose navigation functions globally for onclick
@@ -368,6 +569,7 @@
         window.markComplete = function(subject, chapter) {
             setChapterProgress(subject, chapter, 100);
             updateProgressUI(100);
+            renderReportsSection();
         }
 
         // Initial render
