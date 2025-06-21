@@ -102,7 +102,6 @@
 
         try {
           await createUserWithEmailAndPassword(auth, email, password);
-          // Registration successful, redirect to dashboard or login
           window.location.href = 'dashboard.html';
         } catch (error) {
           errorMsg.textContent = error.message;
