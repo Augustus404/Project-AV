@@ -226,10 +226,10 @@
 <body>
     <header>Avnowledge NEET Videos</header>
     <div class="container" id="main-content">
-        <!-- Dynamic Content Here -->
+        
     </div>
     <script>
-        // NEET 2026 chapters (simplified)
+      
         const chapters = {
             Physics: [
                 "Physical World & Measurement",
@@ -325,7 +325,7 @@
             ]
         };
 
-        // Sample notes per chapter (replace with real content as needed)
+
         const sampleNotes = [
             "Key concepts are highlighted in the video.",
             "Remember important formulas and their derivations.",
@@ -334,7 +334,6 @@
             "Practice all solved and unsolved examples."
         ];
 
-        // Progress tracking (stored in localStorage)
         function getProgressKey(subject, chapter) {
             return `avnowledge_progress_${subject}_${chapter}`;
         }
@@ -345,7 +344,7 @@
             localStorage.setItem(getProgressKey(subject, chapter), percent);
         }
 
-        // Notes storage (per chapter, in localStorage)
+       
         function getNotesKey(subject, chapter) {
             return `avnowledge_notes_${subject}_${chapter}`;
         }
@@ -356,7 +355,7 @@
             localStorage.setItem(getNotesKey(subject, chapter), notes);
         }
 
-        // Calculate report data
+      
         function getProgressReport() {
             const report = {};
             let grandTotal = 0, grandCompleted = 0;
@@ -382,7 +381,7 @@
             return report;
         }
 
-        // UI rendering
+  
         const main = document.getElementById('main-content');
 
         function renderSubjects() {
@@ -415,7 +414,7 @@
         }
 
         function renderVideoPage(subject, chapter) {
-            // Always load the latest notes from localStorage
+           
             const prog = getChapterProgress(subject, chapter);
             const notes = getChapterNotes(subject, chapter);
             main.innerHTML = `
@@ -463,7 +462,7 @@
                         }
                     }
                 };
-                // Notes save logic: stays forever in localStorage per chapter
+        
                 const notesTextarea = document.getElementById('notesTextarea');
                 const saveBtn = document.getElementById('saveNotesBtn');
                 const savedInd = document.getElementById('notesSavedIndicator');
@@ -472,7 +471,7 @@
                     savedInd.style.opacity = 1;
                     setTimeout(() => savedInd.style.opacity = 0, 1200);
                 };
-                // Optional: Autosave on Ctrl+Enter
+          
                 notesTextarea.addEventListener('keydown', function(e) {
                     if (e.ctrlKey && e.key === 'Enter') {
                         setChapterNotes(subject, chapter, notesTextarea.value);
@@ -489,14 +488,14 @@
             document.getElementById('progressBar').style.width = percent + '%';
         }
 
-        // Reports Section Rendering
+       
         function renderReportsSection(subject) {
             const el = document.getElementById('reports-section');
             const report = getProgressReport();
             if (!el) return;
             
             if (!subject) {
-                // Overall report
+           
                 el.innerHTML = `
                     <h3 style="color:var(--sky-blue-dark);margin-top:0;">Reports & Progress</h3>
                     <div>
@@ -530,7 +529,7 @@
                     </table>
                 `;
             } else {
-                // Subject report (per-chapter)
+             
                 const subjChaps = chapters[subject];
                 el.innerHTML = `
                     <h3 style="color:var(--sky-blue-dark);margin-top:0;">${subject} Progress</h3>
@@ -568,7 +567,6 @@
             }
         }
 
-        // Expose navigation functions globally for onclick
         window.chooseSubject = function(subject) {
             renderChapters(subject);
         }
@@ -581,7 +579,7 @@
             renderReportsSection();
         }
 
-        // Initial render
+       
         renderSubjects();
     </script>
 </body>
