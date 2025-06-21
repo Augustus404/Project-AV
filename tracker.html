@@ -20,14 +20,13 @@
   <div id="report"></div>
 
   <script>
-    // -- Configurable chapters (add/edit as needed) --
+   
     const chapters = [
       { id: 'ch1', name: 'Introduction' },
       { id: 'ch2', name: 'Getting Started' },
       { id: 'ch3', name: 'Advanced Concepts' }
     ];
 
-    // Load progress and notes from LocalStorage
     function loadProgress() {
       return JSON.parse(localStorage.getItem('progress')) || {};
     }
@@ -41,7 +40,7 @@
       localStorage.setItem('notes_' + chapterId, content);
     }
 
-    // Render chapters UI
+    
     function renderChapters() {
       const progress = loadProgress();
       const container = document.getElementById('chapters');
@@ -50,7 +49,7 @@
         const div = document.createElement('div');
         div.className = 'chapter';
 
-        // Progress checkbox
+       
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = !!progress[ch.id];
@@ -60,7 +59,6 @@
           renderReport();
         };
 
-        // Notes textarea
         const notes = document.createElement('textarea');
         notes.className = 'notes';
         notes.value = loadNotes(ch.id);
@@ -75,7 +73,6 @@
       });
     }
 
-    // Render report
     function renderReport() {
       const progress = loadProgress();
       const report = document.getElementById('report');
@@ -84,7 +81,7 @@
       const total = chapters.length;
       const percent = Math.round((completed / total) * 100);
 
-      // Progress bar
+     
       report.innerHTML = `<div>Overall Progress: ${completed} / ${total} chapters (${percent}%)</div>
         <div class="report-bar"><div class="report-bar-inner" style="width:${percent}%"></div></div>
         <ul>` +
@@ -94,7 +91,7 @@
         `</ul>`;
     }
 
-    // Init
+   
     renderChapters();
     renderReport();
   </script>
