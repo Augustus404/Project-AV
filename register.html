@@ -1,75 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Specify character encoding -->
   <meta charset="UTF-8" />
+  <!-- Responsive viewport settings -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Page title shown on browser tab -->
   <title>Register | AVNOWLEDGE</title>
+  <!-- Link external CSS file -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Internal CSS styling specifically for register page -->
   <style>
+    /* Body styling when on the register page */
     body.register-page {
-      background-color: #121212;
-      color: #f0f0f0;
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+      background-color: #121212; /* Dark background */
+      color: #f0f0f0; /* Light text color */
+      font-family: 'Poppins', sans-serif; /* Font family */
+      display: flex; /* Use flexbox for centering */
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      height: 100vh; /* Full viewport height */
+      margin: 0; /* Remove default margin */
     }
+
+    /* Container box for the registration form */
     .register-container {
-      background-color: #1e1e1e;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.7);
-      width: 350px;
-      color: #f0f0f0;
-      text-align: center;
+      background-color: #1e1e1e; /* Slightly lighter dark background */
+      padding: 2rem; /* Padding inside container */
+      border-radius: 12px; /* Rounded corners */
+      box-shadow: 0 8px 16px rgba(0,0,0,0.7); /* Shadow for depth */
+      width: 350px; /* Fixed width */
+      color: #f0f0f0; /* Light text color */
+      text-align: center; /* Center all text inside */
     }
+
+    /* Styling for inputs and buttons */
     input, button {
-      font-family: 'Poppins', sans-serif;
-      background-color: #333;
-      border: none;
-      color: #f0f0f0;
-      padding: 0.75rem;
-      margin: 0.5rem 0;
-      border-radius: 8px;
-      width: 100%;
-      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif; /* Font */
+      background-color: #333; /* Dark gray background */
+      border: none; /* Remove default borders */
+      color: #f0f0f0; /* Light text */
+      padding: 0.75rem; /* Padding inside inputs/buttons */
+      margin: 0.5rem 0; /* Vertical spacing between elements */
+      border-radius: 8px; /* Rounded corners */
+      width: 100%; /* Full width inside container */
+      box-sizing: border-box; /* Include padding in width */
     }
+
+    /* Placeholder text color for inputs */
     input::placeholder {
-      color: #bbb;
+      color: #bbb; /* Light gray placeholders */
     }
+
+    /* Additional button-specific styles */
     button {
-      background-color: #2962ff;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
+      background-color: #2962ff; /* Bright blue background */
+      cursor: pointer; /* Pointer cursor on hover */
+      font-weight: 600; /* Semi-bold font */
+      transition: background-color 0.3s ease; /* Smooth color transition */
     }
+
+    /* Button hover effect */
     button:hover {
-      background-color: #0039cb;
+      background-color: #0039cb; /* Darker blue on hover */
     }
+
+    /* Style for error message displayed below form */
     .error-message {
-      color: #ff6b6b;
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
+      color: #ff6b6b; /* Soft red color for errors */
+      margin-top: 0.5rem; /* Spacing above error */
+      font-size: 0.9rem; /* Slightly smaller font */
     }
+
+    /* Text prompting login if account exists */
     .login-link {
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      color: #bbb;
+      margin-top: 1rem; /* Space above */
+      font-size: 0.9rem; /* Smaller font size */
+      color: #bbb; /* Light gray color */
     }
+
+    /* Link inside login prompt */
     .login-link a {
-      color: #2962ff;
-      text-decoration: none;
+      color: #2962ff; /* Blue link color */
+      text-decoration: none; /* Remove underline */
     }
+
+    /* Hover effect for login link */
     .login-link a:hover {
-      text-decoration: underline;
+      text-decoration: underline; /* Underline on hover */
     }
   </style>
+
+  <!-- JavaScript for Firebase user registration -->
   <script type="module" defer>
+    // Import Firebase modules from CDN
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
+    // Firebase configuration object (replace with your own)
     const firebaseConfig = {
       apiKey: "AIzaSyDmUWyxzFNwPzSdchRkhBeRvt6WxGCBCRc",
       authDomain: "avnowledge.firebaseapp.com",
@@ -80,47 +109,36 @@
       measurementId: "G-CHDCB73WNY"
     };
 
+    // Initialize Firebase app and get auth service
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
+    // Run script once DOM is fully loaded
     window.addEventListener('DOMContentLoaded', () => {
+      // Get reference to the form and error message paragraph
       const form = document.getElementById('registerForm');
       const errorMsg = document.getElementById('errorMsg');
 
+      // Listen for form submission
       form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        errorMsg.textContent = '';
+        e.preventDefault(); // Prevent default form submission behavior
+        errorMsg.textContent = ''; // Clear any previous error messages
 
+        // Extract input values from form
         const email = form.email.value;
         const password = form.password.value;
         const confirmPassword = form.confirmPassword.value;
 
+        // Check if passwords match before submitting
         if (password !== confirmPassword) {
           errorMsg.textContent = 'Passwords do not match!';
-          return;
+          return; // Stop further execution
         }
 
         try {
+          // Attempt to create a new user with Firebase Authentication
           await createUserWithEmailAndPassword(auth, email, password);
+          // On success, redirect to dashboard page
           window.location.href = 'dashboard.html';
         } catch (error) {
-          errorMsg.textContent = error.message;
-        }
-      });
-    });
-  </script>
-</head>
-<body class="register-page">
-  <div class="register-container">
-    <h2>Create an Account</h2>
-    <form id="registerForm">
-      <input type="email" name="email" placeholder="Email" required />
-      <input type="password" name="password" placeholder="Password" required minlength="6" />
-      <input type="password" name="confirmPassword" placeholder="Confirm Password" required minlength="6" />
-      <button type="submit">Register</button>
-    </form>
-    <p id="errorMsg" class="error-message"></p>
-    <p class="login-link">Already have an account? <a href="login.html">Login here</a></p>
-  </div>
-</body>
-</html>
+          // If error
