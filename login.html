@@ -1,80 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Set character encoding -->
   <meta charset="UTF-8" />
+  <!-- Responsive viewport for mobile devices -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Page title shown on browser tab -->
   <title>Login | AVNOWLEDGE</title>
+  <!-- Link to external stylesheet -->
   <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts Poppins family -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Internal CSS styles specific to login page -->
   <style>
+    /* Body styling for login page */
     body.login-page {
-      background-color: #121212;
-      color: #f0f0f0;
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+      background-color: #121212; /* Dark background */
+      color: #f0f0f0; /* Light text color */
+      font-family: 'Poppins', sans-serif; /* Poppins font */
+      display: flex; /* Use flexbox for centering content */
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      height: 100vh; /* Full viewport height */
+      margin: 0; /* Remove default margin */
     }
+
+    /* Container for the login form */
     .login-container {
-      background-color: #1e1e1e;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.7);
-      width: 350px;
-      text-align: center;
-      color: #f0f0f0;
+      background-color: #1e1e1e; /* Slightly lighter dark background */
+      padding: 2rem; /* Padding inside container */
+      border-radius: 12px; /* Rounded corners */
+      box-shadow: 0 8px 16px rgba(0,0,0,0.7); /* Drop shadow */
+      width: 350px; /* Fixed width */
+      text-align: center; /* Center text */
+      color: #f0f0f0; /* Light text */
     }
+
+    /* Style for input fields and buttons */
     input, button {
-      font-family: 'Poppins', sans-serif;
-      background-color: #333;
-      border: none;
-      color: #f0f0f0;
-      padding: 0.75rem;
-      margin: 0.5rem 0;
-      border-radius: 8px;
-      width: 100%;
-      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif; /* Font family */
+      background-color: #333; /* Dark gray background */
+      border: none; /* Remove borders */
+      color: #f0f0f0; /* Light text */
+      padding: 0.75rem; /* Padding inside elements */
+      margin: 0.5rem 0; /* Vertical margin */
+      border-radius: 8px; /* Rounded corners */
+      width: 100%; /* Full width inside container */
+      box-sizing: border-box; /* Include padding in width */
     }
+
+    /* Placeholder text color */
     input::placeholder {
-      color: #bbb;
+      color: #bbb; /* Light gray placeholder */
     }
+
+    /* Additional button styling */
     button {
-      background-color: #2962ff;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
+      background-color: #2962ff; /* Blue background */
+      cursor: pointer; /* Pointer cursor on hover */
+      font-weight: 600; /* Semi-bold font weight */
+      transition: background-color 0.3s ease; /* Smooth transition */
     }
+
+    /* Button hover color */
     button:hover {
-      background-color: #0039cb;
+      background-color: #0039cb; /* Darker blue on hover */
     }
+
+    /* Styling for error message text */
     .error-message {
-      color: #ff6b6b;
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-      min-height: 1.2em;
+      color: #ff6b6b; /* Red-ish error color */
+      margin-top: 0.5rem; /* Space above */
+      font-size: 0.9rem; /* Smaller font */
+      min-height: 1.2em; /* Minimum height to reserve space */
     }
+
+    /* Text and link for registration prompt */
     .register-link {
-      margin-top: 1.5rem;
-      font-size: 0.9rem;
-      color: #bbb;
+      margin-top: 1.5rem; /* Space above */
+      font-size: 0.9rem; /* Smaller font */
+      color: #bbb; /* Light gray text */
     }
+
+    /* Link styling inside registration prompt */
     .register-link a {
-      color: #2962ff;
-      text-decoration: none;
-      font-weight: 600;
+      color: #2962ff; /* Blue link */
+      text-decoration: none; /* Remove underline */
+      font-weight: 600; /* Semi-bold font */
     }
+
+    /* Hover effect for registration link */
     .register-link a:hover {
-      text-decoration: underline;
+      text-decoration: underline; /* Underline on hover */
     }
   </style>
 
-  <!-- Firebase SDK and login script -->
+  <!-- Firebase SDK imports and login logic -->
   <script type="module" defer>
+    // Import Firebase app initialization and auth functions from CDN
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
+    // Your Firebase configuration object
     const firebaseConfig = {
       apiKey: "AIzaSyDmUWyxzFNwPzSdchRkhBeRvt6WxGCBCRc",
       authDomain: "avnowledge.firebaseapp.com",
@@ -85,40 +113,60 @@
       measurementId: "G-CHDCB73WNY"
     };
 
+    // Initialize Firebase app
     const app = initializeApp(firebaseConfig);
+    // Initialize Firebase authentication
     const auth = getAuth(app);
 
+    // Wait for DOM to fully load before running script
     window.addEventListener('DOMContentLoaded', () => {
+      // Get references to login form and error message container
       const form = document.getElementById('loginForm');
       const errorMsg = document.getElementById('errorMsg');
 
+      // Add event listener for form submission
       form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        errorMsg.textContent = '';
+        e.preventDefault(); // Prevent default form submission
+        errorMsg.textContent = ''; // Clear previous error messages
 
+        // Get input values from form fields
         const email = form.email.value;
         const password = form.password.value;
 
         try {
+          // Attempt to sign in user with Firebase Authentication
           await signInWithEmailAndPassword(auth, email, password);
-          // On success, redirect to dashboard
+          // Redirect to dashboard on successful login
           window.location.href = 'dashboard.html';
         } catch (error) {
+          // Display error message if login fails
           errorMsg.textContent = error.message;
         }
       });
     });
   </script>
 </head>
+
 <body class="login-page">
+  <!-- Main container for login form -->
   <div class="login-container">
+    <!-- Heading -->
     <h2>Login to AVNOWLEDGE</h2>
+
+    <!-- Login form -->
     <form id="loginForm">
+      <!-- Email input field -->
       <input type="email" name="email" placeholder="Email" required />
+      <!-- Password input field -->
       <input type="password" name="password" placeholder="Password" required minlength="6" />
+      <!-- Submit button -->
       <button type="submit">Login</button>
     </form>
+
+    <!-- Paragraph to show error messages -->
     <p id="errorMsg" class="error-message"></p>
+
+    <!-- Link to registration page -->
     <div class="register-link">
       Don't have an account? <a href="register.html">Register here</a>
     </div>
