@@ -1,183 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Set character encoding -->
   <meta charset="UTF-8" />
+  <!-- Responsive viewport for mobile devices -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Page title shown in browser tab -->
   <title>Dashboard | AVNOWLEDGE</title>
+  <!-- Link to external stylesheet -->
   <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background-color: #f0f2f5;
-    display: flex;
-    flex-direction: column;
-  }
 
-  /* Sidebar */
-  .sidebar {
-    width: 220px;
-    background-color: #1e1e2f;
-    color: white;
-    height: 100vh;
-    padding: 2rem 1rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    transition: all 0.3s ease;
-  }
+  <!-- Internal CSS specific to dashboard -->
+  <style>
+    /* Body styling */
+    body {
+      margin: 0; /* Remove default margin */
+      font-family: 'Poppins', sans-serif; /* Font family */
+      background-color: #f0f2f5; /* Light gray background */
+      display: flex; /* Flex container for layout */
+      flex-direction: column; /* Stack children vertically */
+    }
 
-  .sidebar h2 {
-    font-size: 1.5rem;
-    text-align: center;
-    margin-bottom: 2rem;
-    color: #00d2ff;
-  }
-
-  .sidebar a {
-    display: block;
-    padding: 0.75rem 1rem;
-    margin: 0.5rem 0;
-    color: #bbb;
-    text-decoration: none;
-    border-radius: 6px;
-    transition: background 0.3s ease;
-  }
-
-  .sidebar a:hover {
-    background-color: #33334d;
-    color: #fff;
-  }
-
-  /* Main content */
-  .main {
-    margin-left: 220px;
-    padding: 2rem;
-    flex: 1;
-  }
-
-  .top-bar {
-    background-color: #fff;
-    padding: 1rem 2rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    margin-bottom: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .top-bar h1 {
-    font-size: 1.2rem;
-    color: #333;
-  }
-
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .card {
-    background-color: #ffffff;
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-  }
-
-  .card:hover {
-    transform: translateY(-5px);
-  }
-
-  .card h3 {
-    margin-bottom: 0.75rem;
-    color: #2962ff;
-  }
-
-  .card p {
-    color: #555;
-  }
-
-  .quote {
-    margin-top: 2rem;
-    font-style: italic;
-    color: #888;
-    text-align: center;
-    font-size: 0.9rem;
-  }
-
-  /* Responsive styles */
-  @media (max-width: 768px) {
+    /* Sidebar styles */
     .sidebar {
-      width: 100%;
-      height: auto;
-      position: relative;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      padding: 1rem;
-      z-index: 10;
+      width: 220px; /* Fixed width */
+      background-color: #1e1e2f; /* Dark blueish background */
+      color: white; /* Text color */
+      height: 100vh; /* Full viewport height */
+      padding: 2rem 1rem; /* Padding top/bottom and sides */
+      position: fixed; /* Fix sidebar to left */
+      top: 0;
+      left: 0;
+      transition: all 0.3s ease; /* Smooth transitions */
     }
 
+    /* Sidebar title styling */
     .sidebar h2 {
-      display: none;
+      font-size: 1.5rem; /* Larger font size */
+      text-align: center; /* Center text */
+      margin-bottom: 2rem; /* Space below title */
+      color: #00d2ff; /* Bright cyan text */
     }
 
+    /* Sidebar navigation links */
     .sidebar a {
-      margin: 0;
-      padding: 0.5rem;
-      font-size: 0.85rem;
+      display: block; /* Full width clickable */
+      padding: 0.75rem 1rem; /* Padding inside link */
+      margin: 0.5rem 0; /* Vertical spacing */
+      color: #bbb; /* Light gray text */
+      text-decoration: none; /* Remove underline */
+      border-radius: 6px; /* Rounded corners */
+      transition: background 0.3s ease; /* Smooth hover */
     }
 
+    /* Sidebar link hover effect */
+    .sidebar a:hover {
+      background-color: #33334d; /* Darker background on hover */
+      color: #fff; /* White text on hover */
+    }
+
+    /* Main content area */
     .main {
-      margin-left: 0;
-      padding: 1rem;
-      margin-top: 80px;
+      margin-left: 220px; /* Leave space for sidebar */
+      padding: 2rem; /* Inner padding */
+      flex: 1; /* Take remaining space */
     }
 
+    /* Top bar inside main */
     .top-bar {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
+      background-color: #fff; /* White background */
+      padding: 1rem 2rem; /* Padding */
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow */
+      border-radius: 8px; /* Rounded corners */
+      margin-bottom: 2rem; /* Space below */
+      display: flex; /* Flex container */
+      justify-content: space-between; /* Space between items */
+      align-items: center; /* Vertically center */
+      flex-wrap: wrap; /* Wrap on small screens */
     }
 
+    /* Heading in top bar */
     .top-bar h1 {
-      font-size: 1rem;
+      font-size: 1.2rem; /* Moderate font size */
+      color: #333; /* Dark gray text */
     }
 
+    /* Grid container for cards */
     .cards {
-      grid-template-columns: 1fr;
+      display: grid; /* CSS grid layout */
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Responsive columns */
+      gap: 1.5rem; /* Gap between cards */
     }
 
-    .quote {
-      font-size: 0.8rem;
+    /* Individual card styles */
+    .card {
+      background-color: #ffffff; /* White background */
+      padding: 1.5rem; /* Padding inside card */
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1); /* Soft shadow */
+      transition: transform 0.3s ease; /* Smooth hover transform */
     }
-  }
-</style>
+
+    /* Card hover effect */
+    .card:hover {
+      transform: translateY(-5px); /* Lift card up */
+    }
+
+    /* Card heading */
+    .card h3 {
+      margin-bottom: 0.75rem; /* Space below heading */
+      color: #2962ff; /* Blue text */
+    }
+
+    /* Card paragraph */
+    .card p {
+      color: #555; /* Medium gray text */
+    }
+
+    /* Quote styling */
+    .quote {
+      margin-top: 2rem; /* Space above quote */
+      font-style: italic; /* Italic text */
+      color: #888; /* Light gray text */
+      text-align: center; /* Centered text */
+      font-size: 0.9rem; /* Smaller font */
+    }
+
+    /* Responsive styles for smaller screens */
+    @media (max-width: 768px) {
+      /* Sidebar becomes horizontal bar */
+      .sidebar {
+        width: 100%; /* Full width */
+        height: auto; /* Auto height */
+        position: relative; /* Relative positioning */
+        display: flex; /* Flex container */
+        flex-direction: row; /* Row direction */
+        justify-content: space-around; /* Even spacing */
+        padding: 1rem; /* Padding */
+        z-index: 10; /* On top */
+      }
+
+      /* Hide sidebar title on small screens */
+      .sidebar h2 {
+        display: none;
+      }
+
+      /* Sidebar links get adjusted spacing and font size */
+      .sidebar a {
+        margin: 0; /* Remove margin */
+        padding: 0.5rem; /* Smaller padding */
+        font-size: 0.85rem; /* Smaller font */
+      }
+
+      /* Main content margin reset and spacing */
+      .main {
+        margin-left: 0; /* Remove left margin */
+        padding: 1rem; /* Reduced padding */
+        margin-top: 80px; /* Space below sidebar */
+      }
+
+      /* Top bar stack vertically */
+      .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      /* Smaller font for top bar heading */
+      .top-bar h1 {
+        font-size: 1rem;
+      }
+
+      /* Cards stack vertically */
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      /* Smaller font for quote */
+      .quote {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
 
 </head>
 <body>
 
-  
+  <!-- Sidebar navigation -->
   <aside class="sidebar">
+    <!-- Sidebar title -->
     <h2>AVNOWLEDGE</h2>
+    <!-- Navigation links -->
     <a href="notes.html">📘 Notes</a>
     <a href="videos.html">🎥 Videos</a>
     <a href="tests.html">📝 Tests</a>
     <a href="tracker.html">📌 Tracker</a>
+    <!-- Logout link calls logout function -->
     <a href="index.html" onclick="logout()">🚪 Logout</a>
   </aside>
 
-
+  <!-- Main dashboard content -->
   <main class="main">
+    <!-- Top bar with welcome message and user email -->
     <div class="top-bar">
       <h1>Welcome to your Dashboard!</h1>
+      <!-- Display logged in user email -->
       <span id="userEmail" style="font-size: 0.9rem; color: #666;"></span>
     </div>
 
+    <!-- Cards section showcasing features -->
     <div class="cards">
       <div class="card">
         <h3>📘 Notes</h3>
@@ -193,14 +226,17 @@
       </div>
     </div>
 
+    <!-- Inspirational quote -->
     <p class="quote">"Not just for all students — but for someone who always gave their best, even when it was tough."</p>
   </main>
 
-  
+  <!-- Firebase authentication and logout script -->
   <script type="module">
+    // Import Firebase modules from CDN
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
+    // Firebase project configuration (replace with your own)
     const firebaseConfig = {
       apiKey: "AIzaSyDmUWyxzFNwPzSdchRkhBeRvt6WxGCBCRc",
       authDomain: "avnowledge.firebaseapp.com",
@@ -211,23 +247,29 @@
       measurementId: "G-CHDCB73WNY"
     };
 
+    // Initialize Firebase app
     const app = initializeApp(firebaseConfig);
+    // Initialize Firebase Authentication service
     const auth = getAuth(app);
 
+    // Logout function called by logout link
     const logout = () => {
       signOut(auth).then(() => {
+        // Redirect to login page after sign out
         window.location.href = 'login.html';
       });
     }
 
+    // Detect authentication state changes
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        // If user is logged in, display their email
         document.getElementById("userEmail").textContent = `Logged in as: ${user.email}`;
       } else {
+        // If no user, redirect to login page
         window.location.href = 'login.html';
       }
     });
   </script>
 </body>
 </html>
-
