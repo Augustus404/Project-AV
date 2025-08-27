@@ -91,14 +91,9 @@
       text-decoration: underline; /* Underline on hover */
     }
   </style>
-
-  <!-- JavaScript for Firebase user registration -->
   <script type="module" defer>
-    // Import Firebase modules from CDN
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-    // Firebase configuration object (replace with your own)
     const firebaseConfig = {
       apiKey: "AIzaSyDmUWyxzFNwPzSdchRkhBeRvt6WxGCBCRc",
       authDomain: "avnowledge.firebaseapp.com",
@@ -108,37 +103,23 @@
       appId: "1:178437092267:web:25cd859c76629080e498ee",
       measurementId: "G-CHDCB73WNY"
     };
-
-    // Initialize Firebase app and get auth service
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-
-    // Run script once DOM is fully loaded
     window.addEventListener('DOMContentLoaded', () => {
-      // Get reference to the form and error message paragraph
       const form = document.getElementById('registerForm');
       const errorMsg = document.getElementById('errorMsg');
-
-      // Listen for form submission
       form.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Prevent default form submission behavior
-        errorMsg.textContent = ''; // Clear any previous error messages
-
-        // Extract input values from form
+        e.preventDefault();
+        errorMsg.textContent = '';
         const email = form.email.value;
         const password = form.password.value;
         const confirmPassword = form.confirmPassword.value;
-
-        // Check if passwords match before submitting
         if (password !== confirmPassword) {
           errorMsg.textContent = 'Passwords do not match!';
-          return; // Stop further execution
+          return;
         }
 
         try {
-          // Attempt to create a new user with Firebase Authentication
           await createUserWithEmailAndPassword(auth, email, password);
-          // On success, redirect to dashboard page
           window.location.href = 'dashboard.html';
         } catch (error) {
-          // If error
